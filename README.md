@@ -51,3 +51,33 @@ Ionic CLI can build the frontend into static HTML/CSS/JavaScript files. These fi
 ionic build
 ```
 ***
+
+### Setup Docker Environment
+You'll need to install docker https://docs.docker.com/install/. Open a new terminal within the **udacity-c3-deployment/docker** directory and run:
+
+1. Build the images: `docker-compose -f docker-compose-build.yaml build --parallel`
+2. Push the images: `docker-compose -f docker-compose-build.yaml push`
+3. Run the container: `docker-compose up`
+
+### Deploy on Kubernetes
+
+1. Navigate to the  **udacity-c3-deployment/k8s** directory
+2. Set AWS credentials and configs
+3. Run:
+
+```bash
+kubectl apply -f ./config
+```
+```bash
+kubectl apply -f ./service
+```
+```bash
+kubectl apply -f ./deployment
+```
+4. Forward local ports for the reverseproxy and frontend services
+```bash
+kubectl port-forward service/reverseproxy 8080:8080
+```
+```bash
+kubectl port-forward service/frontend 8100:8100
+```
